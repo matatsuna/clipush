@@ -1,4 +1,4 @@
-	#packopt name"clipush - 1.0"
+	#packopt name"clipush"
 	#include "user32.as"
 	#include "hspext.as"
 	#include "hsp3util.as"
@@ -17,7 +17,7 @@
 
 	#define WS_EX_TOOLWINDOW	0x00000080 //ツールウィンドウを作成します
 
-
+	filename = ""+gettime(0)+""+gettime(1)+""+gettime(3)
 	bgscr 0,190,30,2 //枠分を余分に確保
 	GetWindowLong hwnd,-20
 	SetWindowLong hwnd,-20,stat  |WS_EX_TOOLWINDOW//|WS_EX_DLGMODALFRAME
@@ -49,15 +49,13 @@
 		notesave "config"
 	}
 	noteunsel
-	exist "clip.csv"
+	exist "clip_"+filename+".csv"
 	if strsize == -1{
 		notesel log
-		notesave "clip.csv"
+		notesave "clip_"+filename+".csv"
 		noteunsel
 	}
-	//bgscr 0,190,30,12,winx,winy
 	width ,,winx,winy
-	//gsel 0,2
 	font"",15
 	
 	onexit goto*e
@@ -89,7 +87,7 @@ goto *lp
 	gettimestr time
 	regstring = date+" "+time+",\""+clipstring+"\""
 	noteadd regstring,0,0
-	notesave "clip.csv"
+	notesave "clip_"+filename+".csv"
 	noteunsel
 return
 
